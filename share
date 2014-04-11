@@ -1,6 +1,7 @@
 #! /usr/local/bin/python
 
 import sys
+import os
 
 def share(url):
     with open("db", "a") as myfile:
@@ -51,6 +52,11 @@ def clear_db():
     with open("db", "w") as myfile:
     	myfile.write("")
 
+""" EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
+def git():
+    os.system("git commit -a -m \"added url " + sys.argv[1] + "\"")
+    os.system("git push")
+
 def main():
     if parse_args() == 0:
     	clear_db()
@@ -58,6 +64,7 @@ def main():
 	share(sys.argv[1])
 	html = build_html()
 	write_html(html)
+	git()
 
 if __name__ == "__main__":
     main()
