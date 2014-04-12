@@ -52,7 +52,7 @@ def clear_db():
     with open("db", "w") as myfile:
     	myfile.write("")
 
-""" EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
+""" EXTREMELY!!!!!! unsafe!!!!!!! (and not generic) use with caution """
 def git():
     os.system("git commit -a -m \"added url " + sys.argv[1] + "\"")
     os.system("git push")
