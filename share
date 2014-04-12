@@ -38,7 +38,7 @@ def build_html():
 		    </body>
 		</html>
 	    """
-    with open("db") as db:
+    with open(share_dir + "db") as db:
 	for url in db:
 	    ahref = "<a href={0}>{0}</a>".format(url)
 	    html = html.format(ahref + "<br><br>{0}")
@@ -52,7 +52,7 @@ def write_html(html):
     	myfile.write(html)
 
 def clear_db():
-    with open("db", "w") as myfile:
+    with open(share_dir + "db", "w") as myfile:
     	myfile.write("")
 
 """ EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
