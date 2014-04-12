@@ -4,10 +4,10 @@ import sys
 import os
 
 # change to your share project folder
-share_dir = "/Users/jvaelen/code_projects/share"
+share_dir = "/Users/jvaelen/code_projects/share/"
 
 def share(url):
-    with open("db", "a") as myfile:
+    with open(share_dir + "db", "a") as myfile:
 	myfile.write(url + "\n")
 
 """ Possibily unsafe, use with caution """
@@ -48,7 +48,7 @@ def build_html():
 
 
 def write_html(html):
-    with open("index.html", "w") as myfile:
+    with open(share_dir + "index.html", "w") as myfile:
     	myfile.write(html)
 
 def clear_db():
