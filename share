@@ -3,12 +3,13 @@
 import sys
 import os
 
-# change to your share project folder
+# path to share project
 share_dir = "/Users/jvaelen/code_projects/share/"
 
+""" Append url to db """
 def share(url):
-    with open(share_dir + "db", "a") as myfile:
-	myfile.write(url + "\n")
+    with open(share_dir + "db", "a") as dbfile:
+	dbfile.write(url + "\n")
 
 """ Possibily unsafe, use with caution """
 def parse_args():
@@ -30,7 +31,7 @@ def build_html():
 		    </title>
 		    <style type="text/css">
 		    * {{
-			font-size: 28;
+			font-size: 28pt;
 		    }}
 		    </style>
 		    <body>
@@ -47,10 +48,12 @@ def build_html():
     return html
 
 
+""" Create index.html """
 def write_html(html):
     with open(share_dir + "index.html", "w") as myfile:
     	myfile.write(html)
 
+""" Empty out db """
 def clear_db():
     with open(share_dir + "db", "w") as myfile:
     	myfile.write("")
