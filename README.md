@@ -6,4 +6,7 @@ Share is a python script that, ontop of github pages, helps people with moving f
 Usage
 --
 `./share <url>` adds the url to a local file that is used to generate a html page that contains all the files that have been shared.
+
 `./share clear` clears the cache and thus also the html page.
+
+Whenever you execute share with a URL, a commit is automatically issued. This way the github page is instantly updated.
