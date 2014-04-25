@@ -66,7 +66,9 @@ def clear_db():
 
 """ EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
 def git(commit_message):
-    os.system("git -C " + share_dir + " commit -a -m " + "\"" + commit_message + "\"")
+    os.system("git -C " + share_dir + " add index.html");
+    os.system("git -C " + share_dir + " commit -m " + "\""
+                + commit_message + "\"")
     os.system("git -C " + share_dir + " push")
 
 """ Build html using db file, write to actual index.html file and commit """
