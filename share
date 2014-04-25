@@ -9,41 +9,47 @@ share_dir = "/Users/jvaelen/code_projects/share/"
 """ Append url to db """
 def share(url):
     with open(share_dir + "db", "a") as dbfile:
-	dbfile.write(url + "\n")
+        dbfile.write(url + "\n")
 
 """ Possibily unsafe, use with caution """
 def parse_args():
     # test for valid length
     if len(sys.argv) != 2:
-	sys.stderr.write("usage: share <url>")
-	sys.exit()
+        sys.stderr.write("usage: share <url>")
+        sys.exit()
+
+    # share clear
     if sys.argv[1] == "clear":
-	return 0
+        return "clear"
+    # share rebuild
+    elif sys.argv[1] == "rebuild":
+        return "rebuild"
+    # share <url>
     else:
-    	return 1
+        return "share"
 
 """ Read from db and create links """
 def build_html():
     html =  """
-		<html>
-		    <title>Share - easily access articles you want to read 
-				    from your tablet
-		    </title>
-		    <style type="text/css">
-		    * {{
-			font-size: 28pt;
-		    }}
-		    </style>
-		    <body>
-			{0}
-		    </body>
-		</html>
-	    """
+                <html>
+                    <title>Share - easily access articles you want to read 
+                                    from your tablet
+                    </title>
+                    <style type="text/css">
+                    * {{
+                        font-size: 28pt;
+                    }}
+                    </style>
+                    <body>
+                        {0}
+                    </body>
+                </html>
+            """
     with open(share_dir + "db") as db:
-	for url in db:
-	    ahref = "<a href={0}>{0}</a>".format(url)
-	    html = html.format(ahref + "<br><br>{0}")
-	    html = html.replace("{", "{{", 1).replace("}", "}}", 1)
+        for url in db:
+            ahref = "<a href={0}>{0}</a>".format(url)
+            html = html.format(ahref + "<br><br>{0}")
+            html = html.replace("{", "{{", 1).replace("}", "}}", 1)
     html = html.format("")
     return html
 
@@ -51,27 +57,34 @@ def build_html():
 """ Create index.html """
 def write_html(html):
     with open(share_dir + "index.html", "w") as myfile:
-    	myfile.write(html)
+        myfile.write(html)
 
 """ Empty out db """
 def clear_db():
     with open(share_dir + "db", "w") as myfile:
-    	myfile.write("")
+        myfile.write("")
 
 """ EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
 def git():
     os.system("git -C " + share_dir + 
-	      " commit -a -m \"added url " + sys.argv[1] + "\"")
+            " commit -a -m \"added url " + sys.argv[1] + "\"")
     os.system("git -C " + share_dir + " push")
 
+""" Build html using db file, write to actual index.html file and commit """
+def build_and_commit():
+    html = build_html()
+    write_html(html)
+    git()
+
 def main():
-    if parse_args() == 0:
-    	clear_db()
-    else:
-	share(sys.argv[1])
-	html = build_html()
-	write_html(html)
-	git()
+    action = parse_args();
+    if action == "clear":
+        clear_db();
+    elif action == "share":
+        share(sys.argv[1])
+        build_and_commit()
+    elif action == "rebuild":
+        build_and_commit()
 
 if __name__ == "__main__":
     main()
