@@ -66,7 +66,7 @@ def clear_db():
 
 """ EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
 def git(commit_message):
-    os.system("git -C " + share_dir + " commit -a -m " + commit_message)
+    os.system("git -C " + share_dir + " commit -a -m " + "\"" + commit_message + "\"")
     os.system("git -C " + share_dir + " push")
 
 """ Build html using db file, write to actual index.html file and commit """
@@ -83,7 +83,7 @@ def main():
         share(sys.argv[1])
         build_and_commit("added url " + sys.argv[1])
     elif action == "rebuild":
-        build_and_commit("rebuilt index.html (removed some urls)")
+        build_and_commit("rebuilt index.html")
 
 if __name__ == "__main__":
     main()
