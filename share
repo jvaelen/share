@@ -4,11 +4,12 @@ import sys
 import os
 
 # path to share project
-share_dir = "/Users/jvaelen/code_projects/share/"
+share_dir = "/Users/jerv/code/share"
 
 """ Append url to db """
 def share(url):
     with open(share_dir + "db", "a") as dbfile:
+	print url
         dbfile.write(url + "\n")
 
 """ Possibily unsafe, use with caution """
@@ -66,7 +67,7 @@ def clear_db():
 
 """ EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
 def git(commit_message):
-    os.system("git -C " + share_dir + " add index.html");
+    os.system("git -C " + share_dir + " add index.html")
     os.system("git -C " + share_dir + " commit -m " + "\""
                 + commit_message + "\"")
     os.system("git -C " + share_dir + " push")
