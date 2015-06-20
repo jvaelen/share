@@ -33,7 +33,7 @@ def parse_args():
 def build_html():
     html =  """
                 <html>
-                    <title>Share - easily access articles you want to read 
+                    <title>Share - easily access articles you want to read
                                     from your tablet
                     </title>
                     <style type="text/css">
@@ -68,6 +68,7 @@ def clear_db():
 """ EXTREMELY!!!!!! unsafe!!!!!!! use with caution """
 def git(commit_message):
     os.system("git -C " + share_dir + " add index.html")
+    os.system("git -C " + share_dir + " add db")
     os.system("git -C " + share_dir + " commit -m " + "\""
                 + commit_message + "\"")
     os.system("git -C " + share_dir + " push")
